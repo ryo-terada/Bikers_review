@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2022_07_13_130800) do
   end
 
   create_table "bikes", force: :cascade do |t|
+    t.string "manufacturer", null: false
     t.string "bike_name", null: false
     t.string "first_impression", null: false
     t.text "body", null: false

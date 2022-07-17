@@ -1,0 +1,14 @@
+<div>
+  <h3><%= @user.name %></h3>
+  <%= image_tag @user.get_user_image(100,100) %>
+</div>
+
+
+<% @bikes.each do |bike| %>
+<%= image_tag bike.get_bike_image(200,200) %>
+  <p>メーカー：<%= bike.manufacturer %></p>
+  <p>車種：<%= bike.bike_name %></p>
+  <p>第一印象：<%= bike.first_impression %>
+  <p>感想：<%= bike.body %></p>
+  <p>投稿日：<%= bike.created_at.strftime('%Y/%m/%d') %></p>
+<% end %>

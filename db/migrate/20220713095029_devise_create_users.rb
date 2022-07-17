@@ -36,6 +36,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string :name, unique: true, null: false
       t.text :introduction
       t.boolean :is_deleted, null: false, default: false
+      #is_deleted="削除されていますか?" falseの場合は会員、trueの場合は退会
 
       t.timestamps null: false
     end
