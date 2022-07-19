@@ -12,9 +12,11 @@
   <% @bikes.each do |bike| %>
   <tbody>
     <td><%= bike.created_at.strftime('%Y/%m/%d') %></td>
-    <% @users.each do |user| %>
-    <td><%= user.name %></td>
-    <% end %>
+    <td>
+      <%= link_to user_path(bike.user) do %>
+      <%= bike.user.name %>
+      <% end %>
+    </td>
     <td><%= image_tag bike.get_bike_image(100,100) %></td>
     <td><%= bike.manufacturer %></td>
     <td><%= link_to bike.bike_name, bike_path(bike.id) %></td>
