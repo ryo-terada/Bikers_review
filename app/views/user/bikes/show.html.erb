@@ -1,3 +1,6 @@
+<%= @bike.user.name %>さんのレビュー<br>
+<p><%= @bike.user.name %>さんのレビュー一覧は<%= link_to "こちら", user_path(@bike.user), class: "underline" %></p>
+
 <div>
   <%= image_tag @bike.get_bike_image(200,200) %>
   <p>メーカー：<%= @bike.manufacturer %></p>

@@ -16,4 +16,6 @@
   <p>第一印象：<%= bike.first_impression %>
   <p>感想：<%= bike.body %></p>
   <p>投稿日：<%= bike.created_at.strftime('%Y/%m/%d') %></p>
+  <%= link_to "レビュー詳細", bike_path(bike.id) %>
 <% end %>
+<%= paginate @bikes %>

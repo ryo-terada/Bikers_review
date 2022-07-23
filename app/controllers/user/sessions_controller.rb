@@ -24,12 +24,21 @@ class User::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-  
+
   def after_sign_in_path_for(resource)
     bikes_path
   end
 
   def after_sign_out_path_for(resource)
     root_path
+  end
+
+  def user_state
+    @user = User.find_by(email: params[:user][:email])
+    return if !@user
+      if @user.valid_password?(params[:user][:password]) && (@user.is_deleted == true)
+        flash[:notice] = "退会済みです。再度ご登録をしてご利用ください。"
+        redirect_to new_user_registration
+      end
   end
 end

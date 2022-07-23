@@ -3,6 +3,12 @@ class Bike < ApplicationRecord
    belongs_to :user
 
   has_one_attached :bike_image
+  
+  validates :bike_image, presence: true
+  validates :manufacturer, presence: true
+  validates :bike_name, presence: true
+  validates :first_impression, presence: true
+  validates :body, presence: true
 
   def get_bike_image(width, height)
     unless bike_image.attached?
@@ -11,4 +17,6 @@ class Bike < ApplicationRecord
     end
     bike_image.variant(resize_to_limit: [width, height]).processed
   end
+  
+  
 end

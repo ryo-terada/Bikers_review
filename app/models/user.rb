@@ -8,6 +8,12 @@ class User < ApplicationRecord
          
   has_one_attached :user_image
   
+  validates :name, presence: true
+  
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
+  
   def get_user_image(width, height)
   unless user_image.attached?
     file_path = Rails.root.join('app/assets/images/no_image.jpeg')
@@ -15,5 +21,7 @@ class User < ApplicationRecord
   end
   user_image.variant(resize_to_limit: [width, height]).processed
   end
+  
+  
          
 end

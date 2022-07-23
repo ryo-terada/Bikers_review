@@ -1,4 +1,14 @@
 <h1>新規投稿</h1>
+
+<% if @bike.errors.any? %>
+  <%= @bike.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @bike.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_with model: @bike, url: '/bikes', method: :post do |f| %>
   <h4>画像</h4>
   <%= f.file_field :bike_image, accept: "image/*" %>
