@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   registrations: "user/registrations",
   sessions: 'user/sessions'
   }
-  
+
   scope module: :user do
   root to: "homes#top"
   resources :bikes
@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   # 論理削除用のルーティング
   patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
   end
-  
-  
+
+
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
   sessions: "admin/sessions"
   }
@@ -24,5 +24,5 @@ Rails.application.routes.draw do
     resources :bikes
     resources :users
   end
-  
+
 end

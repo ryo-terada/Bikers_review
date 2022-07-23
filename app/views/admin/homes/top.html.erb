@@ -19,7 +19,7 @@
     </td>
     <td><%= image_tag bike.get_bike_image(100,100) %></td>
     <td><%= bike.manufacturer %></td>
-    <td><%= link_to bike.bike_name, bike_path(bike.id) %></td>
+    <td><%= link_to bike.bike_name, admin_bike_path(bike.id) %></td>
     <td><%= bike.first_impression %></td>
   </tbody>
   <% end %>

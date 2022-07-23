@@ -1,5 +1,6 @@
 class User::BikesController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :destroy
+  ]
 
   def new
     @bike = Bike.new

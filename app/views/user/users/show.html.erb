@@ -8,7 +8,14 @@
   <% end %>
 </div>
 
-
+<table class="table mdle-sm user-index">
+  <thead>
+    <th>投稿日</th>
+    <th>画像</th>
+    <th>メーカー</th>
+    <th>車種</th>
+    <th>第一印象</th>
+  </thead>
 <% @bikes.each do |bike| %>
 <%= image_tag bike.get_bike_image(200,200) %>
   <p>メーカー：<%= bike.manufacturer %></p>
@@ -18,4 +25,5 @@
   <p>投稿日：<%= bike.created_at.strftime('%Y/%m/%d') %></p>
   <%= link_to "レビュー詳細", bike_path(bike.id) %>
 <% end %>
+</table>
 <%= paginate @bikes %>

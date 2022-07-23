@@ -4,14 +4,23 @@
           <th>プロフィール画像</th>
           <th>名前</th>
           <th>自己紹介文</th>
+          <th></th>
+          <th>ステータス</th>
   	    </thead>
   	  	<tbody>
   	  	  <% @users.each do |user| %>
-	  	  	<tr>
-            <td><%= image_tag user.get_user_image(100,100),fallback: "no_image.jpeg"%></td>
+	  	    <tr>
+              <td><%= image_tag user.get_user_image(100,100),fallback: "no_image.jpeg"%></td>
 	  	  	  <td><%= user.name %></td>
 	  	  	  <td><%= user.introduction %></td>
-	  	  	  <td><%= user.name %>さんのレビュー一覧は<%= link_to "こちら", "/users/#{user.id}", class: "underline" %></p></td>
+	  	  	  <td><%= user.name %>さんのレビュー一覧は<%= link_to "こちら", "users/#{user.id}", class: "underline" %></td>
+	  	  	  <td>
+	  	  	  <% if user.is_deleted? %>
+		        <span class="text-secondary">退会済み</span>
+			  <% else %>
+			    <span class="text-success">有効</span>
+			  <% end %>
+			  </td>
 	  	  	</tr>
   	  	  <% end %>
   	  	</tbody>
