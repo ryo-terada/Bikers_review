@@ -5,10 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
          
   has_many :bikes, dependent: :destroy
+  has_many :favorites, dependent: :destroy
          
   has_one_attached :user_image
   
-  validates :name, presence: true
+  validates :name, presence:true, uniqueness:true, length:{ minimum: 2, maximum: 20}
+  validates :introduction, length:{ maximum: 50 }
   
   def active_for_authentication?
     super && (is_deleted == false)

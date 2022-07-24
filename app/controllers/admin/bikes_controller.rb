@@ -8,6 +8,7 @@ class Admin::BikesController < ApplicationController
   def destroy
     bike = Bike.find(params[:id])
     bike.destroy
+    flash[:notice] = "Bike review was successfully destroyed."
     redirect_to '/admin/top'
     # 削除後のリダイレクト先に注意
   end

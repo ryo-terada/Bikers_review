@@ -10,12 +10,12 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= image_tag user.get_user_image(100,100), fallback: "no_image.jpeg"%></td>
+        <td><%= image_tag user.get_user_image(100,100), fallback:"no_image.jpeg"%></td>
 	      <td><%= link_to user.name, "/admin/users/#{user.id}" %></td>
 	      <td><%= user.introduction %></td>
 	      <td>
 	        <% if user.is_deleted? %>
-		        <span class="text-secondary">退会済み</span>
+		        <span class="text-secondary">退会</span>
 		  	  <% else %>
 			      <span class="text-success">有効</span>
 			    <% end %>

@@ -10,6 +10,7 @@ class User::BikesController < ApplicationController
     @bike = Bike.new(bike_params)
     @bike.user_id = current_user.id
     if @bike.save
+      flash[:notice] = "Bike review was successfully created."
       redirect_to bike_path(@bike)
     else
       render :new
@@ -27,6 +28,7 @@ class User::BikesController < ApplicationController
   def destroy
     bike = Bike.find(params[:id])
     bike.destroy
+    flash[:notice] = "Bike review was successfully destroyed."
     redirect_to '/bikes'
   end
 

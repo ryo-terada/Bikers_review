@@ -2,7 +2,7 @@ class User::UsersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   
   def index
-  @users = User.page(params[:page])
+    @users = User.page(params[:page])
   end
   
   def show
@@ -17,13 +17,12 @@ class User::UsersController < ApplicationController
     else
       redirect_to user_path(current_user)
     end
-    
   end
   
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice]="You have updated user successfully."
+      flash[:notice] = "You have updated user successfully."
       redirect_to user_path(current_user)
     else
       render :edit
@@ -33,6 +32,7 @@ class User::UsersController < ApplicationController
   def unsubscribe
     @user = User.find(params[:id])
     if @user == current_user
+      # 退会確認画面への移動
       render "unsubscribe"
     else
       redirect_to user_path(current_user)
@@ -44,10 +44,11 @@ class User::UsersController < ApplicationController
     # is_deletedカラムをtrueに変更することにより削除フラグを立てる
     @user.update(is_deleted: true)
     reset_session
-    flash[:notice] = "退会処理を実行いたしました"
+    flash[:notice] = "You have withdrawn user successfully"
     redirect_to root_path
   end
   
+  # ユーザーデータのストロングパラメーター
   private
   
   def user_params

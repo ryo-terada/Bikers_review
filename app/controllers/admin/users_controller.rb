@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
   
   def index
-  @users = User.page(params[:page])
+    @users = User.page(params[:page])
   end
 
   def show
@@ -13,13 +13,15 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @user.update(user_params)
+    flash[:notice] = "You have updated user successfully."
     redirect_to admin_user_path(@user.id)
+    # 削除後のリダイレクト先に注意
   end
   
+  # ユーザーデータのストロングパラメーター
   private
   
   def user_params
     params.require(:user).permit(:name, :introduction, :user_image, :is_deleted)
   end
-  
 end

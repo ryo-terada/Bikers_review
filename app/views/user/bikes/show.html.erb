@@ -11,4 +11,20 @@
   <% if @bike.user == current_user %>
     <%= link_to "削除", bike_path(@bike.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
   <% end %>
+  
+  <% if current_user.nil? %>
+    <p>♥<%= @bike.favorites.count %> いいね</p>
+  <% elsif @bike.favorited_by?(current_user) %>
+    <p>
+      <%= link_to bike_favorites_path(@bike), method: :delete do %>
+        ♥<%= @bike.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% else %>
+    <p>
+      <%= link_to bike_favorites_path(@bike), method: :post do %>
+        ♡<%= @bike.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
 </div>
