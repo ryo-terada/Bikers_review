@@ -1,27 +1,27 @@
 <h1>ユーザー一覧</h1>
-<table class="table mdle-sm user-index">
-        <thead>
-          <th>プロフィール画像</th>
-          <th>名前</th>
-          <th>自己紹介文</th>
-          <th></th>
-          <th>ステータス</th>
-  	    </thead>
-  	  	<tbody>
-  	  	  <% @users.each do |user| %>
-	  	    <tr>
-              <td><%= image_tag user.get_user_image(100,100),fallback: "no_image.jpeg"%></td>
-	  	  	  <td><%= user.name %></td>
-	  	  	  <td><%= user.introduction %></td>
-	  	  	  <td><%= user.name %>さんのレビュー一覧は<%= link_to "こちら", "users/#{user.id}", class: "underline" %></td>
-	  	  	  <td>
-	  	  	  <% if user.is_deleted? %>
+
+<table class="table table-hover">
+  <thead>
+    <th>プロフィール画像</th>
+    <th>ユーザー名</th>
+    <th>自己紹介</th>
+    <th>ステータス</th>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= image_tag user.get_user_image(100,100), fallback: "no_image.jpeg"%></td>
+	      <td><%= link_to user.name, "/admin/users/#{user.id}" %></td>
+	      <td><%= user.introduction %></td>
+	      <td>
+	        <% if user.is_deleted? %>
 		        <span class="text-secondary">退会済み</span>
-			  <% else %>
-			    <span class="text-success">有効</span>
-			  <% end %>
-			  </td>
-	  	  	</tr>
-  	  	  <% end %>
-  	  	</tbody>
-  	  </table>
+		  	  <% else %>
+			      <span class="text-success">有効</span>
+			    <% end %>
+		    </td>
+		  </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @users %>

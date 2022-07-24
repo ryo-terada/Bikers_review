@@ -1,18 +1,19 @@
 <h1>ユーザー一覧</h1>
-<table class="table mdle-sm user-index">
-        <thead>
-          <th>プロフィール画像</th>
-          <th>名前</th>
-          <th>自己紹介文</th>
-  	    </thead>
-  	  	<tbody>
-  	  	  <% @users.each do |user| %>
-	  	  	<tr>
-            <td><%= image_tag user.get_user_image(100,100),fallback: "no_image.jpeg"%></td>
-	  	  	  <td><%= user.name %></td>
-	  	  	  <td><%= user.introduction %></td>
-	  	  	  <td><%= user.name %>さんのレビュー一覧は<%= link_to "こちら", "/users/#{user.id}", class: "underline" %></td>
-	  	  	</tr>
-  	  	  <% end %>
-  	  	</tbody>
-  	  </table>
+
+<table class="table table-hover">
+  <thead>
+    <th>プロフィール画像</th>
+    <th>ユーザー名</th>
+    <th>自己紹介</th>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= image_tag user.get_user_image(100,100), fallback: "no_image.jpeg" %></td>
+	  	  <td><%= link_to user.name, "/users/#{user.id}" %></td>
+	  	  <td><%= user.introduction %></td>
+	  	</tr>
+  	<% end %>
+  </tbody>
+</table>
+<%= paginate @users %>

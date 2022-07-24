@@ -2,7 +2,7 @@ class User::UsersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   
   def index
-  @users = User.all
+  @users = User.page(params[:page])
   end
   
   def show
@@ -13,7 +13,7 @@ class User::UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     if @user == current_user
-        render "edit"
+      render "edit"
     else
       redirect_to user_path(current_user)
     end
@@ -31,6 +31,12 @@ class User::UsersController < ApplicationController
   end
   
   def unsubscribe
+    @user = User.find(params[:id])
+    if @user == current_user
+      render "unsubscribe"
+    else
+      redirect_to user_path(current_user)
+    end
   end
   
   def withdrawal
