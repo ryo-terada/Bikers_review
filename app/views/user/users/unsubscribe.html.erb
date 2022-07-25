@@ -1,19 +1,19 @@
 <h2 class="text-center">退会お手続き</h2>
 <br>
 <h5 class="text-center">
-  退会お手続きをされますと、レビューの新規投稿がご利用頂けなくなります。<br>
-  また、退会お手続きをされましても、新規投稿を行なったレビューは残り続けます。<br>
-  お手数お掛けしますが、レビューを削除されたい場合は、<br>
-  退会お手続きの前に、レビューの削除をお願い致します。
+  退会するとレビューの新規投稿と、いいね・コメント機能がご利用頂けなくなります。<br>
+  また、退会されましても新規投稿を行なったレビューと、記入したコメントは残り続けます。<br>
+  お手数お掛けしますが、レビューとコメントを削除されたい場合は、<br>
+  退会お手続きの前にレビューとコメントの削除をお願い致します。
 </h5>
 <br>
 <div class="container">
   <div class="row">
-    <div class="mx-auto col-md-2">
-      <%= link_to "退会する", withdrawal_path, method: :patch, "data-confirm" => "本当に退会しますか？", class: "btn btn-danger" %>
+    <div class="mx-auto col-md-3">
+      <%= link_to "退会する", withdrawal_path, method: :patch, "data-confirm" => "本当に退会しますか？", class: "btn btn-block btn-danger" %>
     </div>
-    <div class="mx-auto col-md-2">
-      <%= link_to "退会しない", user_path(current_user), class: "btn btn-primary" %>
+    <div class="mx-auto col-md-3">
+      <%= link_to "退会しない", user_path(current_user), class: "btn btn-block btn-primary" %>
     </div>
   </div>
 </div>

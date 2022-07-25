@@ -1,6 +1,7 @@
 class Bike < ApplicationRecord
 
   belongs_to :user
+  has_many :bike_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
   has_one_attached :bike_image

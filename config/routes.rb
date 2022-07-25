@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   scope module: :user do
     root to: "homes#top"
     resources :bikes, only: [:new, :create, :index, :show, :destroy] do
+      resources :bike_comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
     resources :users, only: [:index, :show, :edit, :update]
@@ -23,7 +24,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'top' => 'homes#top', as: 'top'
-    resources :bikes, only: [:show, :destroy]
+    resources :bikes, only: [:show, :destroy] do
+      resources :bike_comments, only: [:destroy]
+    end
     resources :users, only: [:index, :show, :update]
   end
 end

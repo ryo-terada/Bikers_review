@@ -1,4 +1,5 @@
-<%= @bike.user.name %>さんのレビュー<br>
+<%= @bike.user.name %>さんのレビュー
+<br>
 <p><%= @bike.user.name %>さんのレビュー一覧は<%= link_to "こちら", admin_user_path(@bike.user), class: "underline" %></p>
 
 <div>
@@ -8,5 +9,14 @@
   <p>第一印象：<%= @bike.first_impression %>
   <p>感想：<%= @bike.body %></p>
   <p>投稿日：<%= @bike.created_at.strftime('%Y/%m/%d') %></p>
-    <%= link_to "削除", admin_bike_path(@bike.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+  <%= link_to "削除", admin_bike_path(@bike.id), class: "btn btn-danger", method: :delete, "data-confirm" => "本当に削除しますか？" %>
 </div>
+<div>
+  <p>コメント件数：<%= @bike.bike_comments.count %></p>
+  <% @bike.bike_comments.each do |bike_comment| %>
+    <p><%= image_tag bike_comment.user.get_user_image(100,100) %></p>
+    <%= bike_comment.user.name %>
+    <%= bike_comment.created_at.strftime('%Y/%m/%d') %><%= bike_comment.comment %>
+  <% end %>
+</div>
+  <p>♡<%= @bike.favorites.count %> いいね</p>

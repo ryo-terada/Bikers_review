@@ -23,6 +23,7 @@ class User::BikesController < ApplicationController
 
   def show
     @bike = Bike.find(params[:id])
+    @bike_comment = BikeComment.new
   end
 
   def destroy
@@ -32,7 +33,7 @@ class User::BikesController < ApplicationController
     redirect_to '/bikes'
   end
 
-  # 投稿データのストロングパラメータ
+  # 投稿データのストロングパラメーター
   private
 
   def bike_params

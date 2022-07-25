@@ -1,4 +1,6 @@
-<%= @bike.user.name %>さんのレビュー<br>
+
+<%= @bike.user.name %>さんのレビュー
+<br>
 <p><%= @bike.user.name %>さんのレビュー一覧は<%= link_to "こちら", user_path(@bike.user), class: "underline" %></p>
 
 <div>
@@ -9,11 +11,31 @@
   <p>感想：<%= @bike.body %></p>
   <p>投稿日：<%= @bike.created_at.strftime('%Y/%m/%d') %></p>
   <% if @bike.user == current_user %>
-    <%= link_to "削除", bike_path(@bike.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+    <%= link_to "削除", bike_path(@bike.id), class: "btn btn-danger", method: :delete, "data-confirm" => "本当に削除しますか？" %>
   <% end %>
-  
+</div>
+
+<div>
+  <p>コメント件数：<%= @bike.bike_comments.count %></p>
+  <% @bike.bike_comments.each do |bike_comment| %>
+    <p><%= image_tag bike_comment.user.get_user_image(100,100) %></p>
+    <%= bike_comment.user.name %>
+    <%= bike_comment.created_at.strftime('%Y/%m/%d') %><%= bike_comment.comment %>
+    <% if bike_comment.user == current_user %>
+      <%= link_to "削除", bike_bike_comment_path(bike_comment.bike, bike_comment), class: "btn btn-danger", method: :delete, "data-confirm" => "本当に削除しますか？" %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@bike, @bike_comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<div>
   <% if current_user.nil? %>
-    <p>♥<%= @bike.favorites.count %> いいね</p>
+    <p>♡<%= @bike.favorites.count %> いいね</p>
   <% elsif @bike.favorited_by?(current_user) %>
     <p>
       <%= link_to bike_favorites_path(@bike), method: :delete do %>
