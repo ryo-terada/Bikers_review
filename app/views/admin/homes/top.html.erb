@@ -5,11 +5,9 @@
     <th>投稿日</th>
     <th>ユーザー</th>
     <th>画像</th>
-    <th>メーカー</th>
-    <th>車種</th>
+    <th>メーカー / 車種</th>
     <th>第一印象</th>
-    <th>いいね</th>
-    <th>コメント</th>
+    <th>いいね / コメント数</th>
   </thead>
   <tbody>
     <% @bikes.each do |bike| %>
@@ -21,11 +19,9 @@
           <% end %>
         </td>
         <td><%= image_tag bike.get_bike_image(100,100) %></td>
-        <td><%= bike.manufacturer %></td>
-        <td><%= link_to bike.bike_name, admin_bike_path(bike.id) %></td>
+        <td><%= bike.manufacturer %> / <%= link_to bike.bike_name, admin_bike_path(bike.id) %></td>
         <td><%= bike.first_impression %></td>
-        <td>♡<%= bike.favorites.count %></td>
-        <td><%= bike.bike_comments.count %></td>
+        <td>♡<%= bike.favorites.count %> / <%= bike.bike_comments.count %></td>
       </tr>
     <% end %>
   </tbody>

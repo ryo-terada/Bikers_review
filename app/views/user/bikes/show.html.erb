@@ -1,52 +1,67 @@
-
-<%= @bike.user.name %>さんのレビュー
-<br>
-<p><%= @bike.user.name %>さんのレビュー一覧は<%= link_to "こちら", user_path(@bike.user), class: "underline" %></p>
-
-<div>
-  <%= image_tag @bike.get_bike_image(200,200) %>
-  <p>メーカー：<%= @bike.manufacturer %></p>
-  <p>車種：<%= @bike.bike_name %></p>
-  <p>第一印象：<%= @bike.first_impression %>
-  <p>感想：<%= @bike.body %></p>
-  <p>投稿日：<%= @bike.created_at.strftime('%Y/%m/%d') %></p>
-  <% if @bike.user == current_user %>
-    <%= link_to "削除", bike_path(@bike.id), class: "btn btn-danger", method: :delete, "data-confirm" => "本当に削除しますか？" %>
-  <% end %>
-</div>
-
-<div>
-  <p>コメント件数：<%= @bike.bike_comments.count %></p>
-  <% @bike.bike_comments.each do |bike_comment| %>
-    <p><%= image_tag bike_comment.user.get_user_image(100,100) %></p>
-    <%= bike_comment.user.name %>
-    <%= bike_comment.created_at.strftime('%Y/%m/%d') %><%= bike_comment.comment %>
-    <% if bike_comment.user == current_user %>
-      <%= link_to "削除", bike_bike_comment_path(bike_comment.bike, bike_comment), class: "btn btn-danger", method: :delete, "data-confirm" => "本当に削除しますか？" %>
+<div class="container">
+  <div class="row">
+    <h3><%= @bike.user.name %>さんのレビュー</h3>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <%= image_tag @bike.get_bike_image(200,200) %>
+    </div>
+    <div class="col-md-8 py-5">
+      <table>
+        <tr><td>投稿日：<%= @bike.created_at.strftime('%Y/%m/%d') %></td></tr>
+        <tr><td>メーカー：<%= @bike.manufacturer %></td></tr>
+        <tr><td>車種：<%= @bike.bike_name %></td></tr>
+        <tr><td>第一印象：<%= @bike.first_impression %></td></tr>
+      </table>
+    </div>
+  </div>
+  <div>
+    <p>感想：<%= @bike.body %></p>
+    <% if @bike.user == current_user %>
+      <%= link_to "削除", bike_path(@bike.id), class: "btn btn-danger", method: :delete, "data-confirm" => "本当に削除しますか？" %>
     <% end %>
-  <% end %>
-</div>
-<div>
-  <%= form_with model: [@bike, @bike_comment] do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する", class: "btn btn-primary" %>
-  <% end %>
-</div>
-
-<div>
-  <% if current_user.nil? %>
-    <p>♡<%= @bike.favorites.count %> いいね</p>
-  <% elsif @bike.favorited_by?(current_user) %>
-    <p>
-      <%= link_to bike_favorites_path(@bike), method: :delete do %>
-        ♥<%= @bike.favorites.count %> いいね
+  </div>
+  <br>
+  <div>
+    <% if current_user.nil? %>
+      <p>♡<%= @bike.favorites.count %> いいね</p>
+    <% elsif @bike.favorited_by?(current_user) %>
+      <p>
+        <%= link_to bike_favorites_path(@bike), method: :delete do %>
+          ♥<%= @bike.favorites.count %> いいね
+        <% end %>
+      </p>
+    <% else %>
+      <p>
+        <%= link_to bike_favorites_path(@bike), method: :post do %>
+          ♡<%= @bike.favorites.count %> いいね
+        <% end %>
+      </p>
+    <% end %>
+  </div>
+  <div class="new-comment card-text">
+    <% if user_signed_in? %>
+      <%= form_with model: [@bike, @bike_comment] do |f| %>
+        <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+        <%= f.submit "送信する", class: "btn btn-primary" %>
       <% end %>
-    </p>
-  <% else %>
-    <p>
-      <%= link_to bike_favorites_path(@bike), method: :post do %>
-        ♡<%= @bike.favorites.count %> いいね
-      <% end %>
-    </p>
+    <% end %>
+  </div>
+  <hr>
+  <div class="comments card-text">
+  <h4><%= @bike.bike_comments.count %>件コメント</h4>
+  <% @bike.bike_comments.each do |bike_comment| %>
+    <div class="media border mb-3">
+      <%= bike_comment.user.name %>
+      <%= image_tag bike_comment.user.get_user_image(60,60), class: "bd-placeholder-img align-self-center mx-3" %>
+      <div class="media-body ml-4 p-3">
+        <p><%= bike_comment.created_at.strftime('%Y/%m/%d') %></p>
+        <p><%= bike_comment.comment %></p>
+        <% if bike_comment.user == current_user %>
+          <%= link_to "削除", bike_bike_comment_path(bike_comment.bike, bike_comment), method: :delete, class: "btn btn-danger", method: :delete, "data-confirm" => "本当に削除しますか？" %>
+        <% end %>
+      </div>
+    </div>
   <% end %>
+  </div>
 </div>

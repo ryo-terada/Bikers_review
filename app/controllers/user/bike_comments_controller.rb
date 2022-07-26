@@ -14,6 +14,9 @@ class User::BikeCommentsController < ApplicationController
       #@bike = Bike.find(params[:bike_id])
       #@bike_comment = BikeComment.new
       #render "user/bikes/show"
+      
+      #エラーメッセージ表示のため"render"を使うとエラーが起こるため、"redirect_to"で実装
+      #エラーメッセージは未実装
       redirect_to bike_path(bike)
     end
   end

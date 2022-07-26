@@ -37,9 +37,9 @@ class User::SessionsController < Devise::SessionsController
   def user_state
     @user = User.find_by(email: params[:user][:email])
     return if !@user
-      if @user.valid_password?(params[:user][:password]) && (@user.is_deleted == true)
-        flash[:notice] = "You have withdrawn. Please register again and use it."
-        redirect_to new_user_registration_path
-      end
+    if @user.valid_password?(params[:user][:password]) && (@user.is_deleted == true)
+      flash[:notice] = "You have withdrawn. Please register again and use it."
+      redirect_to new_user_registration_path
+    end
   end
 end

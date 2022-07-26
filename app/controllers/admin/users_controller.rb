@@ -15,7 +15,7 @@ class Admin::UsersController < ApplicationController
     @user.update(user_params)
     flash[:notice] = "You have updated user successfully."
     redirect_to admin_user_path(@user.id)
-    # 削除後のリダイレクト先に注意
+    # 管理側では、全てのユーザーの会員ステータス（会員or退会）の選択ができる
   end
   
   # ユーザーデータのストロングパラメーター

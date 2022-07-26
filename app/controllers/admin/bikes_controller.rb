@@ -10,6 +10,6 @@ class Admin::BikesController < ApplicationController
     bike.destroy
     flash[:notice] = "Bike review was successfully destroyed."
     redirect_to '/admin/top'
-    # 削除後のリダイレクト先に注意
+    # 管理側は全てのユーザーのレビューを削除できる
   end
 end
