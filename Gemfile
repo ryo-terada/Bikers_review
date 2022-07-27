@@ -58,8 +58,3 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #以下、自分で追加したgem(gem 'image_processing', '~> 1.2'も自分で#の解除)
 gem 'devise'
 gem 'kaminari','~> 1.2.1'
-
-gem 'dotenv-rails'
-group :production do
-  gem 'mysql2'
-end
