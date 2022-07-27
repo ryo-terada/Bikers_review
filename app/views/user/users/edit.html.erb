@@ -1,10 +1,37 @@
-<h2>プロフィール編集</h2>
-<%= form_with model: @user do |f| %>
-  <label for="inputName">Name</label>
-  <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前" %>
-  <label for="inputIntroduction">Introduction</label>
-  <%= f.text_area :introduction, id:"inputIntroduction" , placeholder:"自己紹介文" %>
-  <label for="inputImage">UserImage</label>
-  <%= f.file_field :user_image, placeholder: "プロフィール画像", accept: "image/*" %>  
-  <%= f.submit "変更を保存" %>
-<% end %>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto text-center shadow-lg rounded px-0 my-5">
+      <h5 class="text-dark bg-light py-4 mb-0">プロフィール編集</h5>
+      <div class="form-body p-4">
+        <% if @user.errors.any? %>
+        <%= @user.errors.count %>件のエラーが発生しました
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+        <%= form_with model: @user do |f| %>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" aria-hidden="true"><i class="fas fa-user"></i></span>
+            </div>
+            <%= f.text_field :name, autofocus:true, class: "form-control", id:"inputName", placeholder:"ユーザー名" %>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" aria-hidden="true"><i class="fas fa-pen"></i></span>
+            </div>
+            <%= f.text_area :introduction, class: "form-control", rows:"3", id:"inputIntroduction", placeholder:"自己紹介文" %>
+          </div>
+          <div class="input-group my-3">
+            <label><%= f.file_field :user_image, placeholder: "プロフィール画像", class: "w-100" %></label>
+          </div>
+          <hr>
+          <%= f.submit "変更を保存", class: "btn btn-lg btn-block btn-info mt-5" %>
+          <%= link_to "退会する", unsubscribe_path, class: "btn btn-lg btn-block btn-danger btn-info mt-5" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

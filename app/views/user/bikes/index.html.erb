@@ -1,26 +1,29 @@
-<h1>投稿一覧</h1>
+<h1>レビュー一覧</h1>
 
-<table class="table table-hover table-inverse">
+<table class="table table-hover">
   <thead>
     <th>投稿日</th>
     <th>ユーザー</th>
     <th>画像</th>
-    <th>メーカー</th>
-    <th>車種</th>
+    <th>メーカー / 車種</th>
     <th>第一印象</th>
+    <th>いいね / コメント数</th>
   </thead>
-  <% @bikes.each do |bike| %>
   <tbody>
-    <td><%= bike.created_at.strftime('%Y/%m/%d') %></td>
-    <td>
-      <%= link_to user_path(bike.user) do %>
-      <%= bike.user.name %>
-      <% end %>
-    </td>
-    <td><%= image_tag bike.get_bike_image(100,100) %></td>
-    <td><%= bike.manufacturer %></td>
-    <td><%= link_to bike.bike_name, bike_path(bike.id) %></td>
-    <td><%= bike.first_impression %></td>
+    <% @bikes.each do |bike| %>
+      <tr>
+        <td><%= bike.created_at.strftime('%Y/%m/%d') %></td>
+        <td>
+          <%= link_to user_path(bike.user) do %>
+          <%= bike.user.name %>
+          <% end %>
+        </td>
+        <td><%= image_tag bike.get_bike_image(100,100) %></td>
+        <td><%= bike.manufacturer %> / <%= link_to bike.bike_name, bike_path(bike.id) %></td>
+        <td><%= bike.first_impression %></td>
+        <td>♡<%= bike.favorites.count %> / <%= bike.bike_comments.count %></td>
+      </tr>
+    <% end %>
   </tbody>
-  <% end %>
 </table>
+<%= paginate @bikes %>

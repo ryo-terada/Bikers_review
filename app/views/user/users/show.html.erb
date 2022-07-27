@@ -1,19 +1,40 @@
+<table>
+  <tr><%= image_tag @user.get_user_image(150,150) %></tr>
+  <tr>
+	  <th>ユーザー名：</th>
+	  <th><%= @user.name %></th>
+  </tr>
+  <tr>
+	  <th>　自己紹介：</th>
+	  <th><%= @user.introduction %></th>
+  </tr>
+</table>
+<br>
 <div>
-  <h3><%= @user.name %></h3>
-  <%= image_tag @user.get_user_image(100,100) %>
-  <p>自己紹介</p>
-  <%= @user.introduction %>
   <% if @user == current_user %>
-    <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+    <h5><%= link_to "プロフィール編集", edit_user_path(@user), class: "btn btn-info" %></h5>
   <% end %>
 </div>
-
-
-<% @bikes.each do |bike| %>
-<%= image_tag bike.get_bike_image(200,200) %>
-  <p>メーカー：<%= bike.manufacturer %></p>
-  <p>車種：<%= bike.bike_name %></p>
-  <p>第一印象：<%= bike.first_impression %>
-  <p>感想：<%= bike.body %></p>
-  <p>投稿日：<%= bike.created_at.strftime('%Y/%m/%d') %></p>
-<% end %>
+<br>
+<h3><%= @user.name %>さんのレビュー一覧</h3>
+<table class="table table-hover">
+  <thead>
+    <th>投稿日</th>
+    <th>画像</th>
+    <th>メーカー / 車種</th>
+    <th>第一印象</th>
+    <th>いいね / コメント数</th>
+  </thead>
+  <tbody>
+    <% @bikes.each do |bike| %>
+      <tr>
+        <td><%= bike.created_at.strftime('%Y/%m/%d') %></td>
+        <td><%= image_tag bike.get_bike_image(150,150) %></td>
+        <td><%= bike.manufacturer %> / <%= link_to bike.bike_name, bike_path(bike.id) %></td>
+        <td><%= bike.first_impression %></td>
+        <td>♡<%= bike.favorites.count %> / <%= bike.bike_comments.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @bikes %>
