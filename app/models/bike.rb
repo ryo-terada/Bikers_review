@@ -7,8 +7,8 @@ class Bike < ApplicationRecord
   has_one_attached :bike_image
   
   validates :bike_image, presence:true
-  validates :manufacturer, presence:true
-  validates :bike_name, presence:true
+  validates :manufacturer, presence:true, length:{maximum:30}
+  validates :bike_name, presence:true, length:{maximum:30}
   validates :first_impression, presence:true, length:{maximum:30}
   validates :body, presence:true, length:{maximum:400}
 
