@@ -18,6 +18,8 @@ class Admin::UsersController < ApplicationController
     # 管理側では、全てのユーザーの会員ステータス（会員or退会）の選択ができる
   end
   
+  
+  
   # ユーザーデータのストロングパラメーター
   private
   

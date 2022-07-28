@@ -1,17 +1,16 @@
 class User::UsersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :ensure_user, except: [:index]
 
   def index
     @users = User.page(params[:page])
   end
 
   def show
-    @user = User.find(params[:id])
     @bikes = @user.bikes.page(params[:page])
   end
 
   def edit
-    @user = User.find(params[:id])
     if @user == current_user
       render "edit"
     else
@@ -20,7 +19,6 @@ class User::UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:notice] = "You have updated user successfully."
       redirect_to user_path(current_user)
@@ -30,7 +28,6 @@ class User::UsersController < ApplicationController
   end
 
   def unsubscribe
-    @user = User.find(params[:id])
     if @user == current_user
       # 退会確認画面への移動
       render "unsubscribe"
@@ -40,13 +37,16 @@ class User::UsersController < ApplicationController
   end
 
   def withdrawal
-    @user = User.find(params[:id])
     @user.update(is_deleted: true)
     reset_session
     flash[:notice] = "You have withdrawn user successfully"
     redirect_to root_path
     # アカウントは物理削除されない
     # is_deletedカラムをtrueに変更することにより退会フラグを立てる
+  end
+  
+  def ensure_user
+    @user = User.find(params[:id])
   end
 
   # ユーザーデータのストロングパラメーター
